@@ -9,7 +9,7 @@ public class LoginTest {
 
         // Locators
         By loginLinkLocator = By.className("account-title");
-        By cookiePopUpLocator =  By.className("css-47sehv");
+        By cookiePopUpLocator =  By.xpath("//button[contains(@mode, 'primary')]");
         By loginUserNameInputLocator = By.xpath("//input[contains(@placeholder, 'Your e-mail')]");
         By loginPasswordInputLocator = By.xpath("//input[contains(@type, 'password')]");
         By loginButtonLocator = By.xpath("//button[contains(@type, 'submit')]");
