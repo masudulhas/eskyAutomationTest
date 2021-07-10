@@ -13,6 +13,7 @@ public class CheapFlightsForRoundTripTest {
         By loginUserNameInputLocator = By.xpath("//input[contains(@placeholder, 'Your e-mail')]");
         By loginPasswordInputLocator = By.xpath("//input[contains(@type, 'password')]");
         By loginButtonLocator = By.xpath("//button[contains(@type, 'submit')]");
+        By cheapFlightLocator = By.xpath("//li[contains(@class, 'tree-item main-tabs') and a[contains(@title, 'Cheap flights')]]");
 
         //Creating current direction
         String currentDir = System.getProperty("user.dir");
@@ -40,12 +41,18 @@ public class CheapFlightsForRoundTripTest {
         driver.findElement(loginPasswordInputLocator).sendKeys("62320702Asba..");
         driver.findElement(loginButtonLocator).click();
         driver.switchTo().defaultContent();
+        try {
+            Thread.sleep(4000);
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //working here
+        driver.findElement(cheapFlightLocator).click();
 
         // get the actual value of the title
         String actualTitle = driver.getTitle();
         System.out.println("actual title is: " + actualTitle);
-        String expectedTitle = "eSky.co.uk - Flights, Airline Tickets, Flight Search, Deals";
+        String expectedTitle = "Cheap flights - Book airline tickets with us! - eSky.co.uk";
 
 
         //Compare the actual title of the page with the expected one and print
