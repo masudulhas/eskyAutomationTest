@@ -4,14 +4,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
-public class Selenium {
+public class LoginTest {
     public static void main(String[] args) {
 
         // Locators
         By loginLinkLocator = By.className("account-title");
         By cookiePopUpLocator =  By.className("css-47sehv");
-
-        //Working here
         By loginUserNameInputLocator = By.xpath("//input[contains(@placeholder, 'Your e-mail')]");
         By loginPasswordInputLocator = By.xpath("//input[contains(@type, 'password')]");
         By loginButtonLocator = By.xpath("//button[contains(@type, 'submit')]");
@@ -65,6 +63,6 @@ public class Selenium {
         }
 
         //close chrome
-        //driver.close();
+        driver.close();
     }
 }
