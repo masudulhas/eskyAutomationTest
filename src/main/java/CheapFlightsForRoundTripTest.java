@@ -1,11 +1,11 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 public class CheapFlightsForRoundTripTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         // Locators
         By loginLinkLocator = By.className("account-title");
@@ -13,7 +13,7 @@ public class CheapFlightsForRoundTripTest {
         By loginUserNameInputLocator = By.xpath("//input[contains(@placeholder, 'Your e-mail')]");
         By loginPasswordInputLocator = By.xpath("//input[contains(@type, 'password')]");
         By loginButtonLocator = By.xpath("//button[contains(@type, 'submit')]");
-        By cheapFlightLocator = By.xpath("//li[contains(@class, 'tree-item main-tabs') and a[contains(@title, 'Cheap flights')]]");
+        By cheapFlightLocator = By.xpath("//a[text()='Cheap flights']");
 
         //Creating current direction
         String currentDir = System.getProperty("user.dir");
@@ -31,23 +31,61 @@ public class CheapFlightsForRoundTripTest {
 
         //setting up url
         String baseUrl = "https://www.esky.co.uk";
+        //String baseUrl1 = "https://www.esky.co.uk/flights";
 
         // launch chrome and execute the test steps
         driver.get(baseUrl);
         driver.findElement(cookiePopUpLocator).click();
         driver.findElement(loginLinkLocator).click();
-        driver.switchTo().frame("sdk-iframe-login-box");
+        driver.switchTo().frame("sdk-iframe-login-box"); //Switch to frame
         driver.findElement(loginUserNameInputLocator).sendKeys("masud33bd@gmail.com");
         driver.findElement(loginPasswordInputLocator).sendKeys("62320702Asba..");
         driver.findElement(loginButtonLocator).click();
-        driver.switchTo().defaultContent();
-        try {
-            Thread.sleep(4000);
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //working here
+        driver.switchTo().defaultContent();//Back to default content
+        Thread.sleep(4000);
+
+        //working from here 'Cheap flights'
         driver.findElement(cheapFlightLocator).click();
+        Thread.sleep(4000);
+        WebElement departure = driver.findElement(By.name("tr[0][d]"));
+        departure.sendKeys("Heathrow"); //Departure from
+        departure.sendKeys(Keys.ARROW_DOWN);
+        departure.sendKeys(Keys.ENTER);
+        WebElement arrival = driver.findElement(By.name("tr[0][a]"));
+        arrival.sendKeys("Stockholm"); //Arrival to
+        arrival.sendKeys(Keys.ARROW_DOWN);
+        Thread.sleep(2000);
+        arrival.sendKeys(Keys.ENTER);
+
+        //Date picker for Departure
+        for(int i=0; i<2; i++) {
+            if(i==0) driver.findElement(By.id("departureDateRoundtrip0")).click();
+            else driver.findElement(By.id("departureDateRoundtrip1")).click();
+            List<WebElement> allDates = driver.findElements(By.xpath("//table[@class='ui-datepicker-calendar']/tbody//td"));
+
+            for (WebElement element : allDates) {
+                String date = element.getText();
+
+                // once date is 15 then click and break
+                if (date.equalsIgnoreCase("15") && i==0) {
+                    element.click();
+                    break;
+                }
+                // once date is 20 then click and break
+                else if(date.equalsIgnoreCase("20") && i==1) {
+                    element.click();
+                    break;
+                }
+            }
+        }
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//div[(@data-content-id='pax-counter')]")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.className("plus")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//div[(@data-content-id='pax-counter')]")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//button[@class='btn transaction qsf-search']")).click();
 
         // get the actual value of the title
         String actualTitle = driver.getTitle();
@@ -55,8 +93,8 @@ public class CheapFlightsForRoundTripTest {
         String expectedTitle = "Cheap flights - Book airline tickets with us! - eSky.co.uk";
 
 
-        //Compare the actual title of the page with the expected one and print
-        //The result as "Passed" or "Failed"
+        /*Compare the actual title of the page with the expected one and print
+        The result as "Passed" or "Failed"*/
         if (actualTitle.contentEquals(expectedTitle)) {
             System.out.println("Test Passed!");
         } else {
@@ -65,12 +103,12 @@ public class CheapFlightsForRoundTripTest {
 
         // sleeping the execution for 4000 milly sec
         try {
-            Thread.sleep(4000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         //close chrome
-        driver.close();
+        //driver.close();
     }
 }

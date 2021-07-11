@@ -12,6 +12,7 @@ public class RegistrationTest {
         By registerLinkLocator = By.className("register-button");
         By emailRegisterLocator = By.xpath("//input[contains(@name, 'email')]");
         By createAccountButtonLocator = By.xpath("//button[contains(@type, 'submit')]");
+
         //Creating current direction
         String currentDir = System.getProperty("user.dir");
         System.out.println("Current dir using System:" + currentDir);
