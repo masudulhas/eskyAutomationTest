@@ -5,7 +5,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 public class LoginTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         // Locators
         By loginLinkLocator = By.className("account-title");
@@ -35,17 +35,17 @@ public class LoginTest {
         driver.get(baseUrl);
         driver.findElement(cookiePopUpLocator).click();
         driver.findElement(loginLinkLocator).click();
-        driver.switchTo().frame("sdk-iframe-login-box");
+        driver.findElement(By.xpath("//li[@class='menu-item user-zone-email']")).click();
+        //driver.switchTo().frame("sdk-iframe-login-box");
         driver.findElement(loginUserNameInputLocator).sendKeys("masud33bd@gmail.com");
         driver.findElement(loginPasswordInputLocator).sendKeys("62320702Asba..");
         driver.findElement(loginButtonLocator).click();
-        driver.switchTo().defaultContent();
+        //driver.switchTo().defaultContent();
 
         // get the actual value of the title
         String actualTitle = driver.getTitle();
         System.out.println("actual title is: " + actualTitle);
         String expectedTitle = "eSky.co.uk - Flights, Airline Tickets, Flight Search, Deals";
-
 
         //Compare the actual title of the page with the expected one and print
         //The result as "Passed" or "Failed"
@@ -63,6 +63,6 @@ public class LoginTest {
         }
 
         //close chrome
-        driver.close();
+        //driver.close();
     }
 }

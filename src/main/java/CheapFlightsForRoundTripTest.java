@@ -1,6 +1,7 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -10,7 +11,7 @@ public class CheapFlightsForRoundTripTest {
         // Locators
         By loginLinkLocator = By.className("account-title");
         By cookiePopUpLocator =  By.xpath("//button[contains(@mode, 'primary')]");
-        By loginUserNameInputLocator = By.xpath("//input[contains(@placeholder, 'Your e-mail')]");
+        By loginUserNameInputLocator = By.xpath("//input[@placeholder='Your e-mail']");
         By loginPasswordInputLocator = By.xpath("//input[contains(@type, 'password')]");
         By loginButtonLocator = By.xpath("//button[contains(@type, 'submit')]");
         By cheapFlightLocator = By.xpath("//a[text()='Cheap flights']");
@@ -37,11 +38,12 @@ public class CheapFlightsForRoundTripTest {
         driver.get(baseUrl);
         driver.findElement(cookiePopUpLocator).click();
         driver.findElement(loginLinkLocator).click();
-        driver.switchTo().frame("sdk-iframe-login-box"); //Switch to frame
+        driver.findElement(By.xpath("//li[@class='menu-item user-zone-email']")).click();
+        //driver.switchTo().frame("sdk-iframe-login-box"); //Switch to frame
         driver.findElement(loginUserNameInputLocator).sendKeys("masud33bd@gmail.com");
         driver.findElement(loginPasswordInputLocator).sendKeys("62320702Asba..");
         driver.findElement(loginButtonLocator).click();
-        driver.switchTo().defaultContent();//Back to default content
+        //driver.switchTo().defaultContent();//Back to default content
         Thread.sleep(4000);
 
         //working from here 'Cheap flights'
@@ -54,10 +56,10 @@ public class CheapFlightsForRoundTripTest {
         WebElement arrival = driver.findElement(By.name("tr[0][a]"));
         arrival.sendKeys("Stockholm"); //Arrival to
         arrival.sendKeys(Keys.ARROW_DOWN);
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         arrival.sendKeys(Keys.ENTER);
 
-        //Date picker for Departure
+        //Date picker for Departure and Arrival
         for(int i=0; i<2; i++) {
             if(i==0) driver.findElement(By.id("departureDateRoundtrip0")).click();
             else driver.findElement(By.id("departureDateRoundtrip1")).click();
@@ -78,19 +80,26 @@ public class CheapFlightsForRoundTripTest {
                 }
             }
         }
-        Thread.sleep(2000);
+        //Thread.sleep(4000);
+        //We have to wait for the Ajax loader to complete loading the all the WebElements
+        //To achieve that we will introduce ExplicitWait
+        //i.e. WebDriverWait with ExpectedConditions set to elementToBeClickable
+        WebDriverWait wait = new WebDriverWait (driver, 30);
         driver.findElement(By.xpath("//div[(@data-content-id='pax-counter')]")).click();
-        Thread.sleep(2000);
-        driver.findElement(By.className("plus")).click();
-        Thread.sleep(2000);
+        //Thread.sleep(4000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("plus"))).click();
+        //driver.findElement(By.className("plus")).click();
+        Thread.sleep(4000);
         driver.findElement(By.xpath("//div[(@data-content-id='pax-counter')]")).click();
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         driver.findElement(By.xpath("//button[@class='btn transaction qsf-search']")).click();
+        Thread.sleep(4000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class='transaction-text']"))).click();
 
         // get the actual value of the title
         String actualTitle = driver.getTitle();
         System.out.println("actual title is: " + actualTitle);
-        String expectedTitle = "Cheap flights - Book airline tickets with us! - eSky.co.uk";
+        String expectedTitle = "London - All Airports - Stockholm - All Airports - eSky.co.uk";
 
 
         /*Compare the actual title of the page with the expected one and print

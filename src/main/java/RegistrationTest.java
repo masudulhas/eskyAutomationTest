@@ -9,7 +9,7 @@ public class RegistrationTest {
         //Locators
         By loginLinkLocator = By.className("account-title");
         By cookiePopUpLocator =  By.className("css-47sehv");
-        By registerLinkLocator = By.className("register-button");
+        By registerLinkLocator = By.xpath("//button[@class='button']");
         By emailRegisterLocator = By.xpath("//input[contains(@name, 'email')]");
         By createAccountButtonLocator = By.xpath("//button[contains(@type, 'submit')]");
 
@@ -34,6 +34,7 @@ public class RegistrationTest {
         driver.get(baseUrl);
         driver.findElement(cookiePopUpLocator).click();
         driver.findElement(loginLinkLocator).click();
+        driver.findElement(By.xpath("//li[@class='menu-item user-zone-email']")).click();
 
         //Store the ID of the original window
         String originalWindow = driver.getWindowHandle();
@@ -42,9 +43,9 @@ public class RegistrationTest {
         assert driver.getWindowHandles().size() == 1;
 
         //Click the link which opens in a new window
-        driver.switchTo().frame("sdk-iframe-login-box");
+        //driver.switchTo().frame("sdk-iframe-login-box");
         driver.findElement(registerLinkLocator).click();
-        driver.switchTo().defaultContent();
+        //driver.switchTo().defaultContent();
 
         //Loop through until we find a new window handle
         for (String windowHandle : driver.getWindowHandles()) {
