@@ -2,7 +2,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.concurrent.TimeUnit;
-public class LoginTest {
+
+public class LogoutTest {
     public static void main(String[] args) throws InterruptedException {
 
         // Locators
@@ -40,6 +41,8 @@ public class LoginTest {
         driver.findElement(loginButtonLocator).click();
         //driver.switchTo().defaultContent();
         Thread.sleep(4000);
+        driver.findElement(By.xpath("//span[@class=\"account-title\"]")).click();
+        driver.findElement(By.xpath("//a[@class=\"user-zone-link user-zone-sign-out\"]")).click();
 
         // get the actual value of the title
         String actualTitle = driver.getTitle();

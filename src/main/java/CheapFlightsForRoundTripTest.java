@@ -52,12 +52,8 @@ public class CheapFlightsForRoundTripTest {
         departure.sendKeys("Manchester"); //Departure from
         departure.sendKeys(Keys.ARROW_DOWN);
         departure.sendKeys(Keys.ENTER);
-        WebElement arrival = driver.findElement(By.name("tr[0][a]"));
-        arrival.sendKeys("Stockholm, Sweden"); //Arrival to
-        arrival.sendKeys(Keys.ARROW_DOWN);
-        arrival.sendKeys(Keys.ARROW_DOWN);
-        Thread.sleep(4000);
-        arrival.sendKeys(Keys.ENTER);
+        driver.findElement(By.name("tr[0][a]")).sendKeys("Stockholm, Sweden"); //Arrival to
+        driver.findElement(By.xpath("//a[@data-qsf='ARN!airport']")).click();
 
         //Date picker for Departure and Arrival
         for(int i=0; i<2; i++) {
