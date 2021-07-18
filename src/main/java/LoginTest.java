@@ -16,7 +16,7 @@ public class LoginTest {
 
         //Creating current direction
         String currentDir = System.getProperty("user.dir");
-        System.out.println("Current dir using System:" + currentDir);
+        System.out.println("Current Direction Using System: " + currentDir);
         System.setProperty("webdriver.chrome.driver", currentDir + "\\src\\main\\resources\\driver\\chromedriver.exe");
 
         //Notification disable
@@ -41,6 +41,7 @@ public class LoginTest {
         driver.findElement(loginPasswordInputLocator).sendKeys("62320702Asba..");
         driver.findElement(loginButtonLocator).click();
         //driver.switchTo().defaultContent();
+        Thread.sleep(4000);
 
         // get the actual value of the title
         String actualTitle = driver.getTitle();

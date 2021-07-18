@@ -15,7 +15,7 @@ public class RegistrationTest {
 
         //Creating current direction
         String currentDir = System.getProperty("user.dir");
-        System.out.println("Current dir using System:" + currentDir);
+        System.out.println("Current Direction Using System: " + currentDir);
         System.setProperty("webdriver.chrome.driver", currentDir + "\\src\\main\\resources\\driver\\chromedriver.exe");
 
         //Notification disable
