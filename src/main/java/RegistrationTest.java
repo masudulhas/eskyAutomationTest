@@ -78,6 +78,6 @@ public class RegistrationTest {
             e.printStackTrace();
         }
         //Close chrome
-        driver.close();
+        //driver.close();
     }
 }
