@@ -5,41 +5,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginTest {
     public static void main(String[] args) throws InterruptedException {
 
-        // Locators
-        By loginLinkLocator = By.className("account-title");
-        By cookiePopUpLocator =  By.xpath("//button[contains(@mode, 'primary')]");
-        By loginUserNameInputLocator = By.xpath("//input[contains(@placeholder, 'Your e-mail')]");
-        By loginPasswordInputLocator = By.xpath("//input[contains(@type, 'password')]");
-        By loginButtonLocator = By.xpath("//button[contains(@type, 'submit')]");
-
-        //Creating current direction
-        String currentDir = System.getProperty("user.dir");
-        System.out.println("Current Direction Using System: " + currentDir);
-        System.setProperty("webdriver.chrome.driver", currentDir + "\\src\\main\\resources\\driver\\chromedriver.exe");
-
-        //Notification disable
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-notifications");
-
-        //Creating driver object
-        ChromeDriver driver = new ChromeDriver(options);
-        driver.manage().window().maximize(); //Maximize window
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        //setting up url
-        String baseUrl = "https://www.esky.co.uk";
-
-        // launch chrome and execute the test steps
-        driver.get(baseUrl);
-        driver.findElement(cookiePopUpLocator).click();
-        driver.findElement(loginLinkLocator).click();
-        driver.findElement(By.xpath("//li[@class='menu-item user-zone-email']")).click();
-        //driver.switchTo().frame("sdk-iframe-login-box");
-        driver.findElement(loginUserNameInputLocator).sendKeys("masud33bd@gmail.com");
-        driver.findElement(loginPasswordInputLocator).sendKeys("62320702Asba..");
-        driver.findElement(loginButtonLocator).click();
-        //driver.switchTo().defaultContent();
-        Thread.sleep(4000);
+        ChromeDriver driver = BaseLogin.getDriver();
 
         // get the actual value of the title
         String actualTitle = driver.getTitle();

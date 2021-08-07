@@ -6,33 +6,15 @@ import java.util.concurrent.TimeUnit;
 public class RegistrationTest {
     public static void main(String[] args) {
 
+        ChromeDriver driver = Base.getDriver();
         //Locators
         By loginLinkLocator = By.className("account-title");
-        By cookiePopUpLocator =  By.className("css-47sehv");
+        //By cookiePopUpLocator =  By.className("css-47sehv");
         By registerLinkLocator = By.xpath("//button[@class='button']");
         By emailRegisterLocator = By.xpath("//input[contains(@name, 'email')]");
         By createAccountButtonLocator = By.xpath("//button[contains(@type, 'submit')]");
 
-        //Creating current direction
-        String currentDir = System.getProperty("user.dir");
-        System.out.println("Current Direction Using System: " + currentDir);
-        System.setProperty("webdriver.chrome.driver", currentDir + "\\src\\main\\resources\\driver\\chromedriver.exe");
-
-        //Notification disable
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-notifications");
-
-        //Creating driver object
-        ChromeDriver driver = new ChromeDriver(options);
-        driver.manage().window().maximize(); //Maximize window
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        //Setting up url
-        String baseUrl = "https://www.esky.co.uk";
-
-        //Launch chrome and execute the test steps
-        driver.get(baseUrl);
-        driver.findElement(cookiePopUpLocator).click();
+        // launch chrome and execute the test steps
         driver.findElement(loginLinkLocator).click();
         driver.findElement(By.xpath("//li[@class='menu-item user-zone-email']")).click();
 
