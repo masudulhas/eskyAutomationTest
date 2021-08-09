@@ -70,12 +70,26 @@ public class CheapFlightsForRoundTripTest {
         driver.findElement(By.xpath("//input[@id=\"bookFlight_paxes_1_name\"]")).sendKeys("Ateeb");
         driver.findElement(By.xpath("//input[@id=\"bookFlight_paxes_1_surname\"]")).sendKeys("Hasan");
         WebElement title = driver.findElement(By.xpath("//select[@id='bookFlight_paxes_1_title']"));
-        Select select = new Select(title);
-        select.selectByVisibleText("Mr.");
-        WebElement day = driver.findElement(By.xpath("//select[@id='bookFlight_paxes_1_additionalData_dateOfBirth_value_day']"));
-        day.sendKeys("14");
+        Select selectTitle = new Select(title);
+        selectTitle.selectByVisibleText("Mr.");
+        WebElement dayBirth = driver.findElement(By.xpath("//select[@id='bookFlight_paxes_1_additionalData_dateOfBirth_value_day']"));
+        dayBirth.sendKeys("14");
         driver.findElement(By.xpath("//select[@id=\"bookFlight_paxes_1_additionalData_dateOfBirth_value_month\"]")).sendKeys("Jan");
         driver.findElement(By.xpath("//select[@id=\"bookFlight_paxes_1_additionalData_dateOfBirth_value_year\"]")).sendKeys("1980");
+        WebElement documentType = driver.findElement(By.xpath("//select[@id=\"bookFlight_paxes_1_additionalData_document_value\"]"));
+        Select selectDoc = new Select(documentType);
+        selectDoc.selectByVisibleText("Passport");
+        driver.findElement(By.xpath("//input[@id=\"bookFlight_paxes_1_additionalData_documentNumber_value\"]")).sendKeys("abc65525565xyz");
+        WebElement dayDoc = driver.findElement(By.xpath("//select[@id=\"bookFlight_paxes_1_additionalData_documentExpirationDate_value_day\"]"));
+        dayDoc.sendKeys("12");
+        driver.findElement(By.xpath("//select[@id=\"bookFlight_paxes_1_additionalData_documentExpirationDate_value_month\"]")).sendKeys("Feb");
+        driver.findElement(By.xpath("//select[@id=\"bookFlight_paxes_1_additionalData_documentExpirationDate_value_year\"]")).sendKeys("2025");
+        WebElement passNationality = driver.findElement(By.xpath("//select[@id=\"bookFlight_paxes_1_additionalData_nationality_value\"]"));
+        Select selectNationality = new Select(passNationality);
+        selectNationality.selectByVisibleText("Sweden");
+        driver.findElement(By.xpath("//div[@id=\"required-choice-product_SMS_16\"]")).click();
+
+        //Payment details
         driver.findElement(By.xpath("//input[@id='bookFlight_paymentDetails_cardNumber']")).sendKeys("1236547890123654");
         driver.findElement(By.xpath("//select[@id='bookFlight_paymentDetails_cardExpiryDate_month']")).sendKeys("12");
         driver.findElement(By.xpath("//select[@id='bookFlight_paymentDetails_cardExpiryDate_year']")).sendKeys("2025");
@@ -85,6 +99,7 @@ public class CheapFlightsForRoundTripTest {
         driver.findElement(By.xpath("//input[@id=\"bookFlight_paymentDetails_cityName\"]")).sendKeys("Sheffield");
         driver.findElement(By.xpath("//input[@id=\"bookFlight_paymentDetails_street\"]")).sendKeys("London road");
         driver.findElement(By.xpath("//input[@id=\"bookFlight_paymentDetails_houseNumber\"]")).sendKeys("400");
+
 
         //Invoice info payer
         driver.findElement(By.xpath("//input[@id=\"bookFlight_payerDetails_invoiceRequested\"]")).click();
@@ -104,7 +119,7 @@ public class CheapFlightsForRoundTripTest {
         String expectedTitle = "eSky: Manchester - Stockholm";
         String expectedTitle1 = "eSky: Manchester - Cracow";
         String expectedTitle2 = "eSky: Manchester (NH) - Stockholm";
-
+        String expectedTitle3 = "Manchester-Palma de Mallorca";
         /*Compare the actual title of the page with the expected one and print
         The result as "Passed" or "Failed"*/
         if (actualTitle.contentEquals(expectedTitle)) {
@@ -112,6 +127,8 @@ public class CheapFlightsForRoundTripTest {
         }else if(actualTitle.contentEquals(expectedTitle1)){
             System.out.println("Test Passed!");
         }else if(actualTitle.contentEquals(expectedTitle2)){
+            System.out.println("Test Passed!");
+        } else if(actualTitle.contentEquals(expectedTitle3)){
             System.out.println("Test Passed!");
         } else {
             System.out.println("Test Failed");
