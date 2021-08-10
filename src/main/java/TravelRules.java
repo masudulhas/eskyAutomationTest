@@ -1,19 +1,21 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class TravelGuideTest {
+public class TravelRules {
     public static void main(String[] args) throws InterruptedException {
 
         ChromeDriver driver = BaseLogin.getDriver();
 
         //Locators
         By moreTabLocator = By.xpath("//a[@class=\"menu-link more\"]");
-        By travelGuide = By.xpath("//*[@id=\"main-menu-more-box\"]/li/a[@title=\"Travel guide\"]");
+        By travelRules = By.xpath("//ul[@id=\"main-menu-more-box\"]/li/a[@title=\"Travel rules\"]");
+
 
         // launch chrome and execute the test steps
         driver.findElement(moreTabLocator).click();
-        driver.findElement(travelGuide).click();
-
+        driver.findElement(travelRules).click();
+    
         //Get the actual value of the title
         String actualTitle = driver.getTitle();
         System.out.println("actual title is: " + actualTitle);
