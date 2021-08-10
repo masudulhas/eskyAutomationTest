@@ -19,7 +19,7 @@ public class TravelRules {
         //Get the actual value of the title
         String actualTitle = driver.getTitle();
         System.out.println("actual title is: " + actualTitle);
-        String expectedTitle = "Travel guide - useful travel tips - FAQ - eSky.co.uk";
+        String expectedTitle = "Travel restrictions - COVID-19 - eSky.com";
 
         //Compare the actual title of the page with the expected one and print
         //The result as "Passed" or "Failed"
