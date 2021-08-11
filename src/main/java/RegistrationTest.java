@@ -9,7 +9,6 @@ public class RegistrationTest {
         ChromeDriver driver = Base.getDriver();
         //Locators
         By loginLinkLocator = By.className("account-title");
-        //By cookiePopUpLocator =  By.className("css-47sehv");
         By registerLinkLocator = By.xpath("//button[@class='button']");
         By emailRegisterLocator = By.xpath("//input[contains(@name, 'email')]");
         By createAccountButtonLocator = By.xpath("//button[contains(@type, 'submit')]");
