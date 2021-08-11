@@ -24,7 +24,7 @@ public class EditContactDetailsTest {
         WebElement countryCode = driver.findElement(countryCodeLocator);
         Select selectCountryCode = new Select(countryCode);
         selectCountryCode.selectByVisibleText("United Kingdom (+44)");
-        driver.findElement(phoneNumberLocator).sendKeys("0741779405");
+        driver.findElement(phoneNumberLocator).sendKeys("741779405");
         driver.findElement(saveDetailsLocator).click();
 
         //Get the actual value of the title
